@@ -7,8 +7,8 @@ function App() {
   const [counter, setCounter] = useState(0); // useState Hook für Aufgabe 1
   const [checkbox, setCheckbox] = useState(false);
   const [textInput, setTextInput] = useState("");
-
-  // Du benötigst für jede Aufgabe einen weiteren "useState-Hook", welchen du am besten hier platzierst. Achte darauf, einen passenden Datentype als "default Wert" anzugeben.
+  const [position, setPosition] = useState("center");
+  const [fontSize, setFontSize] = useState(12);
 
   return (
     <div className="App">
@@ -52,12 +52,6 @@ function App() {
             checked={checkbox}
           />
           <div>
-            {/*
-             * Im P-Element brauchst du zweimal einen Ternary-Operator (Erinnerung: Bedingung ? Wenn true : Wenn false).
-             * Als Bedingung benutzt du deine State-Variable (vom Typ boolean)
-             * Schreibe das Element dann so um, dass bei true die eine Farbe, und bei false die andere Farbe benutzt wird.
-             * Gleiches machst du für den Text.
-             */}
             <p style={checkbox ? { color: "#007cc3" } : {color: "#ff00ff"} }>
               {checkbox ? "JA" : "NEIN"}
             </p>
@@ -92,40 +86,39 @@ function App() {
       <div className="ExerciseContainer">
         <Aufgabe4 />
         <div className="WrapperHorizontal">
-          {/*
-           * Öffne als erstes die Browser-Konsole und überprüfe was der Event Handler gerade loggt - d.h. was der Wert ist, wenn du das Dropdown benutzt.
-           * Passe den Listener an und nutze eine setState Funktion um "value" in State zu speichern.
-           *
-           */}
           <select
             className="Dropdown"
             onChange={(event) => {
-              console.log(
-                "event.target.value ist: ",
-                event.target.value,
-                " der Datentype ist: ",
-                typeof event.target.value,
-              );
+              setPosition(event.target.value);
             }}
+            value={position}
           >
             <option value="left">Links</option>
             <option value="center">Mittig</option>
             <option value="right">Rechts</option>
           </select>
-          {/*
-           * Hier implementierst du ein zweites Dropdown, welches die Schriftgrösse ändern soll. Gib Werte (value) für 10, 12, 14, 16 vor.
-           * Du brauchst einen weiteren useState-Hook, der das Ergebnis der Auswahl als Zahl speichert.
-           * Achtung - der Handler gibt dir die Zahl als Text (String) zurück. Konvertertiere diese mit `parseInt()`zu einer Zahl ("number"). Das kannst du direkt in der setState Funktion tun.
-           */}
+          
+          <select
+            className="Dropdown"
+            onChange={(event) => {
+              setFontSize(parseInt(event.target.value));
+            }}
+            value={fontSize}
+          >
+            <option value="10">10</option>
+            <option value="12">12</option>
+            <option value="14">14</option>
+            <option value="16">16</option>
+          </select>
 
           <div>
             <p
               id="DynamicText"
               style={
                 {
-                  textAlign: "center",
-                  fontSize: 10,
-                } /* Diese statischen Werte möchtest du an "State" binden. Überprüfe ob deine Interaktionen den Text verändert  */
+                  textAlign: position,
+                  fontSize: fontSize,
+                }
               }
             >
               Text
