@@ -26,6 +26,12 @@ function App() {
           <button className="Button" onClick={() => setCounter(counter + 1)}>
             + 1
           </button>
+          <button className="Button" onClick={() => setCounter(counter + 5)}>
+            + 5 
+          </button>
+          <button className="Button" onClick={() => setCounter(0)}>
+            Reset
+          </button>
           {/*
            * Unter diesem Kommentar fügst du zwei weitere Buttons hinzu.
            * Setze das Attribut className="Button" um das vordefinierte Styling für einen Button zu übernehmen.
