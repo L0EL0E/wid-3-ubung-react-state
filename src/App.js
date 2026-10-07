@@ -5,6 +5,8 @@ import { Aufgabe1, Aufgabe2, Aufgabe3, Aufgabe4 } from "./static/ExText";
 function App() {
   const [state, setState] = useState("defaultWert"); // Beispiel für einen "useState-Hook".
   const [counter, setCounter] = useState(0); // useState Hook für Aufgabe 1
+  const [checkbox, setCheckbox] = useState(false);
+  const [textInput, setTextInput] = useState("");
 
   // Du benötigst für jede Aufgabe einen weiteren "useState-Hook", welchen du am besten hier platzierst. Achte darauf, einen passenden Datentype als "default Wert" anzugeben.
 
@@ -20,9 +22,7 @@ function App() {
       <div className="ExerciseContainer">
         <Aufgabe1 />
         <div className="WrapperHorizontal">
-          {/* Nachfolgende Zeile: Die State-Variable counter liest den aktuellen "State" aus. */}
           <div className="Anzeige"> {counter} </div>
-          {/* Nachfolgende Zeile: Die setState Funktion im onClick Handler wir beim Klick ausgeführt. Sie liest den aktuellen State (eine Zahl) und inkrementiert diese */}
           <button className="Button" onClick={() => setCounter(counter + 1)}>
             + 1
           </button>
@@ -32,10 +32,6 @@ function App() {
           <button className="Button" onClick={() => setCounter(0)}>
             Reset
           </button>
-          {/*
-           * Unter diesem Kommentar fügst du zwei weitere Buttons hinzu.
-           * Setze das Attribut className="Button" um das vordefinierte Styling für einen Button zu übernehmen.
-           */}
         </div>
       </div>
 
@@ -51,10 +47,9 @@ function App() {
             type="checkbox"
             onChange={
               (e) =>
-                console.log(
-                  e.target.checked,
-                ) /* Hier brauchst du wieder eine setState Funktion. Sie kann e.target.checked als Argument bekommen und dies in State schreiben. */
+                setCheckbox(e.target.checked)
             }
+            checked={checkbox}
           />
           <div>
             {/*
@@ -63,8 +58,8 @@ function App() {
              * Schreibe das Element dann so um, dass bei true die eine Farbe, und bei false die andere Farbe benutzt wird.
              * Gleiches machst du für den Text.
              */}
-            <p style={{ color: "#007cc3" /*  oder "#ff00ff" */ }}>
-              {"JA" /*  oder "NEIN" */}
+            <p style={checkbox ? { color: "#007cc3" } : {color: "#ff00ff"} }>
+              {checkbox ? "JA" : "NEIN"}
             </p>
           </div>
         </div>
@@ -76,19 +71,17 @@ function App() {
       <div className="ExerciseContainer">
         <Aufgabe3 />
         <div className="WrapperHorizontal">
-          {/* Im Input-Element fügst du ein weiteres Attribut mit dem Schlüssel `value`hinzu und weist die State-Variable in {}-Klammern als Wert zu. */}
-          <input
+            <input
             id="textfeld"
             type="text"
             onChange={
               (e) =>
-                console.log(
-                  e.target.value,
-                ) /* Hier brauchst du wieder eine setState Funktion. Sie soll e.target.value als Argument bekommen und dies in State schreiben. */
+                setTextInput(e.target.value)
             }
+            value={textInput}
           />
           <div>
-            <p>{/*  Hier liest du die State Variable aus.  */}</p>
+            <p>{textInput}</p>
           </div>
         </div>
       </div>
